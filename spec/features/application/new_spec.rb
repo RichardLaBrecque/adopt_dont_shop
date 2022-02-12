@@ -19,11 +19,29 @@ require 'rails_helper'
 # And I see my Name, address information, and description of why I would make a good home
 # And I see an indicator that this application is "In Progress"
 RSpec.describe 'the application' do
+  before(:each) do
+    @application = Application.create({name: "Person_1", street_address: "123 Fake St", city: "Fakecity", zipcode: "12345", description: " ", status: "In Progress" })
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
+  end
   describe 'creates a new application' do
     it 'has a link on the pets index' do
       visit '/pets'
       click_on 'Start an Application'
       expect(current_path).to eq('/applications/new')
+    end
+
+    it 'creates a new application with the form' do
+      visit '/applications/new'
+      fill_in 'Name', with: "Person_2"
+      fill_in 'Street address', with: "123 Fake St"
+      fill_in "City", with: "Fakecity"
+      fill_in "Zipcode", with: "12345"
+      click_on "Submit"
+      save_and_open_page
+      expect(page).to have_content("Person_2")
+      expect(page).to have_content("In Progress")
     end
   end
 end
