@@ -14,6 +14,9 @@ require 'rails_helper'
 RSpec.describe "application show page" do
   before(:each) do
     @application = Application.create({name: "applicant_1", street_address: "123 fake", city: "Fakecity", zipcode: "12345", description: "cus dogs", status: "pending" })
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
   end
   describe 'it has a page to visit' do
     it 'visits a page' do# binding.pry
@@ -28,6 +31,7 @@ RSpec.describe "application show page" do
       expect(page).to have_content(@application.city)
       expect(page).to have_content(@application.zipcode)
       expect(page).to have_content(@application.description)
+      expect(page).to have_content(@application.status)
     end
   end
 end
