@@ -1,4 +1,8 @@
 class ApplicationsController < ApplicationController
+
+  def index
+    @applications = Application.all
+  end
   def show
     @applicant = Application.find(params[:id])
   end
@@ -8,8 +12,12 @@ class ApplicationsController < ApplicationController
 
   def create
     application = Application.new(app_params)
-    application.save
-    redirect_to "/applications/#{application.id}"
+    if application.save
+      redirect_to "/applications/#{application.id}"
+    else
+      redirect_to "/applications/new"
+      flash[:alert] = "Error: #{error_message(application.errors)}"
+    end
   end
 
   private

@@ -39,9 +39,27 @@ RSpec.describe 'the application' do
       fill_in "City", with: "Fakecity"
       fill_in "Zipcode", with: "12345"
       click_on "Submit"
-      save_and_open_page
+      application = Application.last
+      #binding.pry
+      expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("Person_2")
       expect(page).to have_content("In Progress")
     end
   end
+
+    describe 'an incomplete application' do
+        # As a visitor
+        # When I visit the new application page
+        # And I fail to fill in any of the form fields
+        # And I click submit
+        # Then I am taken back to the new applications page
+        # And I see a message that I must fill in those fields.
+      it 'redirects back to from when incomplete' do
+        visit '/applications/new'
+        click_on "Submit"
+        #save_and_open_page
+        expect(current_path).to eq('/applications/new')
+        expect(page).to have_content("Error: Name can't be blank, Street address can't be blank, City can't be blank, Zipcode can't be blank")
+      end
+    end
 end
