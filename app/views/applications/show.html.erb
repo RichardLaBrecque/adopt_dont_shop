@@ -4,6 +4,7 @@
 <p><%= @applicant.city %></p>
 <p><%= @applicant.zipcode %></p>
 <p><%= @applicant.description %></p>
-<!-- <p><%= @applicant.pets %></p> -->
-<p>pets: <%=%></p>
+<% @applicant.pets.each do |pet| %>
+<p>Applied for: <%= pet.name %></p>
+<% end %>
 <p><%= @applicant.status%></p>
