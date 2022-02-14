@@ -5,6 +5,12 @@ class ApplicationsController < ApplicationController
   end
   def show
     @applicant = Application.find(params[:id])
+    if params[:pet_name] != nil
+      @pets = Pet.named(params[:pet_name])
+      #binding.pry
+    end
+
+    #binding.pry
   end
 
   def new
@@ -18,6 +24,12 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:alert] = "Error: #{error_message(application.errors)}"
     end
+  end
+
+  def update
+    application = Application.find(params[:id])
+    application.update(description: params[:description], status: "Pending")
+    redirect_to "/applications/#{application.id}"
   end
 
   private
