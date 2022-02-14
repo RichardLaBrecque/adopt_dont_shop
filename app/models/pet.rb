@@ -14,6 +14,6 @@ class Pet < ApplicationRecord
   end
 
   def self.named(arg)
-    select("*").where("name= ?", arg)
+    select("*").where("name LIKE ?", "%#{arg}%")
   end
 end
