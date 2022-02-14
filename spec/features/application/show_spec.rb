@@ -13,7 +13,7 @@ require 'rails_helper'
 # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
 RSpec.describe "application show page" do
   before(:each) do
-    @application = Application.create({name: "applicant_1", street_address: "123 fake", city: "Fakecity", zipcode: "12345", description: "cus dogs", status: "pending" })
+    @application = Application.create({name: "applicant_1", street_address: "123 fake", city: "Fakecity", zipcode: "12345"})
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
     @pet_1 = Pet.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: shelter.id)
     @pet_2 = Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
@@ -95,8 +95,10 @@ RSpec.describe "application show page" do
       expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_button("Submit your application")
       save_and_open_page
-      #expect(page).to_not have_content("Search for a pet name")
+
     end
+
+    it 'can be submitted'
 
   end
 end
