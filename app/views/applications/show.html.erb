@@ -14,13 +14,21 @@
 </div>
   <% if @pets != nil %>
     <% @pets.each do |pet| %>
-      <%= pet.name %>
-      <%= link_to "Adopt #{pet.name}", "/applications/#{@applicant.id}/#{pet.id}/petapplications" %>
+      <p><%= pet.name %>
+      <%= link_to "Adopt #{pet.name}", "/applications/#{@applicant.id}/#{pet.id}/petapplications" %></p>
     <% end %>
   <% end %>
+  <% @applicant.pets.each do |pet| %>
+  <p>Applied for: <%= pet.name %></p>
+  <% end %>
+<% if @applicant.pets.count > 0 %>
+    <div class="submit-pet">
+      <%=  form_with url: "/applications/#{@applicant.id}", method: :post, local: true do |f| %>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+      <%= f.submit "Submit your application" %>
+      <% end %>
+    </div>
+  <% end %>
 
-
-<% @applicant.pets.each do |pet| %>
-<p>Applied for: <%= pet.name %></p>
-<% end %>
-<p><%= @applicant.status%></p>
+<p>Your Application is: <%= @applicant.status%></p>

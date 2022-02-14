@@ -68,7 +68,35 @@ RSpec.describe "application show page" do
       expect(current_path).to eq("/applications/#{@application.id}")
 
       expect(page).to have_content("Applied for: #{@pet_1.name}")
-      save_and_open_page
     end
+    # As a visitor
+    # When I visit an application's show page
+    # And I have added one or more pets to the application
+    # Then I see a section to submit my application
+    # And in that section I see an input to enter why I would make a good owner for these pet(s)
+    # When I fill in that input
+    # And I click a button to submit this application
+    # Then I am taken back to the application's show page
+    # And I see an indicator that the application is "Pending"
+    # And I see all the pets that I want to adopt
+    # And I do not see a section to add more pets to this application
+    it 'can be submitted after adding pets' do
+      visit "/applications/#{@application.id}"
+      within ".search-pet" do
+      fill_in("Pet name", with: "#{@pet_1.name}")
+      click_button("Search")
+      end
+      click_on("Adopt #{@pet_1.name}")
+      within ".search-pet" do
+      fill_in("Pet name", with: "#{@pet_2.name}")
+      click_button("Search")
+      end
+      click_on("Adopt #{@pet_2.name}")
+      expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to have_button("Submit your application")
+      save_and_open_page
+      #expect(page).to_not have_content("Search for a pet name")
+    end
+
   end
 end
