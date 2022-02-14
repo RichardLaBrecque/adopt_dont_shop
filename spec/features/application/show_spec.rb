@@ -47,14 +47,14 @@ RSpec.describe "application show page" do
       end
       expect(page).to have_content("#{@pet_1.name}")
     end
-#     As a visitor
-# When I visit an application's show page
-# And I search for a Pet by name
-# And I see the names Pets that match my search
-# Then next to each Pet's name I see a button to "Adopt this Pet"
-# When I click one of these buttons
-# Then I am taken back to the application show page
-# And I see the Pet I want to adopt listed on this application
+    #     As a visitor
+    # When I visit an application's show page
+    # And I search for a Pet by name
+    # And I see the names Pets that match my search
+    # Then next to each Pet's name I see a button to "Adopt this Pet"
+    # When I click one of these buttons
+    # Then I am taken back to the application show page
+    # And I see the Pet I want to adopt listed on this application
     it 'can add pets after the search' do
       visit "/applications/#{@application.id}"
       within ".search-pet" do
@@ -115,9 +115,18 @@ RSpec.describe "application show page" do
       end
       expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_content("Your Application is: Pending")
-    
+
       expect(page).to_not have_content("Search for a pet name")
     end
 
+    it 'submital hidden until pets added' do
+      visit "/applications/#{@application.id}"
+      expect(page).to_not have_button("Submit your application")
+      within ".search-pet" do
+        fill_in("Pet name", with: "#{@pet_1.name}")
+        click_button("Search")
+      end
+    end
   end
-end
+
+  end
