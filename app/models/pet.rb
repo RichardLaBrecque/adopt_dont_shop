@@ -12,4 +12,8 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.named(arg)
+    select("*").where("name= ?", arg)
+  end
 end

@@ -11,6 +11,11 @@
   <%= f.text_field :pet_name %>
   <%= f.submit "Search" %>
   <% end %>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <%= pet.name %>
+    <% end %>
+  <% end %>
 </div>
 <% @applicant.pets.each do |pet| %>
 <p>Applied for: <%= pet.name %></p>

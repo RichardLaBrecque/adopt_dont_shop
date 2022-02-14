@@ -5,6 +5,12 @@ class ApplicationsController < ApplicationController
   end
   def show
     @applicant = Application.find(params[:id])
+    if params[:pet_name] != nil
+      @pets = Pet.named(params[:pet_name])
+      #binding.pry
+    end
+
+    #binding.pry
   end
 
   def new
