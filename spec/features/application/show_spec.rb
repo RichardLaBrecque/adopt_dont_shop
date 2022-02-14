@@ -94,11 +94,30 @@ RSpec.describe "application show page" do
       click_on("Adopt #{@pet_2.name}")
       expect(current_path).to eq("/applications/#{@application.id}")
       expect(page).to have_button("Submit your application")
-      save_and_open_page
 
     end
 
-    it 'can be submitted'
+    it 'can be submitted' do
+      visit "/applications/#{@application.id}"
+      within ".search-pet" do
+      fill_in("Pet name", with: "#{@pet_1.name}")
+      click_button("Search")
+      end
+      click_on("Adopt #{@pet_1.name}")
+      within ".search-pet" do
+      fill_in("Pet name", with: "#{@pet_2.name}")
+      click_button("Search")
+      end
+      click_on("Adopt #{@pet_2.name}")
+      within ".submit-pet" do
+      fill_in("Description", with: "Because Dogs")
+      click_on("Submit your application")
+      end
+      expect(current_path).to eq("/applications/#{@application.id}")
+      expect(page).to have_content("Your Application is: Pending")
+    
+      expect(page).to_not have_content("Search for a pet name")
+    end
 
   end
 end
