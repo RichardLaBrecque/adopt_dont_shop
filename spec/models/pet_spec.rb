@@ -39,6 +39,10 @@ RSpec.describe Pet, type: :model do
       it 'can find pets with partial matches' do
         expect(Pet.named("Mr.")).to eq([@pet_1])
       end
+
+      it 'can find pets by name ignoring case' do
+        expect(Pet.named("clawdia")).to eq([@pet_2])
+      end
     end
   end
 
