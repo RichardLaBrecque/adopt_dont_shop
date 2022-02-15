@@ -16,7 +16,7 @@
   <% if @pets != nil %>
   <% @pets.each do |pet| %>
   <p><%= pet.name %>
-    <%= link_to "Adopt #{pet.name}", "/applications/#{@applicant.id}/#{pet.id}/petapplications" %></p>
+    <%= button_to "Adopt #{pet.name}", "/applications/#{@applicant.id}/#{pet.id}/petapplications", method: :post %></p>
     <% end %>
     <% end %>
 <% end %>

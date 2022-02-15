@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get '/veterinary_offices/:veterinary_office_id/veterinarians/new', to: 'veterinarians#new'
   post '/veterinary_offices/:veterinary_office_id/veterinarians', to: 'veterinarians#create'
 
-  get '/applications/:application_id/:pet_id/petapplications', to: 'pet_applications#create' #not restful, change to button/post
+  post '/applications/:application_id/:pet_id/petapplications', to: 'pet_applications#create' #not restful, change to button/post
   get '/applications/new', to: 'applications#new'
   get '/applications', to: 'applications#index'
   post '/applications', to: 'applications#create'
