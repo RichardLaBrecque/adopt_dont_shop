@@ -30,7 +30,6 @@ RSpec.describe "application show page" do
       expect(page).to have_content(@application.street_address)
       expect(page).to have_content(@application.city)
       expect(page).to have_content(@application.zipcode)
-      expect(page).to have_content(@application.description)
       expect(page).to have_content(@application.status)
     end
   end
@@ -114,6 +113,8 @@ RSpec.describe "application show page" do
       click_on("Submit your application")
       end
       expect(current_path).to eq("/applications/#{@application.id}")
+      submitted = Application.find(@application.id)
+      expect(page).to have_content(submitted.description)
       expect(page).to have_content("Your Application is: Pending")
 
       expect(page).to_not have_content("Search for a pet name")
@@ -122,10 +123,7 @@ RSpec.describe "application show page" do
     it 'submital hidden until pets added' do
       visit "/applications/#{@application.id}"
       expect(page).to_not have_button("Submit your application")
-      within ".search-pet" do
-        fill_in("Pet name", with: "#{@pet_1.name}")
-        click_button("Search")
-      end
+    
     end
   end
 
