@@ -16,4 +16,8 @@ class Pet < ApplicationRecord
   def self.named(arg)
     select("*").where("name iLIKE ?", "%#{arg}%")
   end
+
+  def self.pending_app
+    pet_applications.pending_app  
+  end
 end
