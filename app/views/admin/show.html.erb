@@ -1,10 +1,5 @@
 <h1><%= "#{@application.name}'s application Admin" %></h1>
-<p><%= @application.name %></p>
-<p><%= @application.street_address %></p>
-<p><%= @application.city %></p>
-<p><%= @application.zipcode %></p>
-<p><%= @application.description %></p>
-
+<%= render "shared/applicant"%>
 <% @application.pet_applications.each do |pet_app| %>
   <% if pet_app.status == "Pending" %>
       <p>Applied for: <%= pet_app.pet.name %> <%= button_to "Approve #{pet_app.pet.name}", "/admin/pet_applications/#{pet_app.id}/edit", method: :patch, params: {status: "Approved"} %>

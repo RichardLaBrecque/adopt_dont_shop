@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
     @applications = Application.all
   end
   def show
-    @applicant = Application.find(params[:id])
+  @application = Application.find(params[:id])
     if params[:pet_name] != nil
       @pets = Pet.named(params[:pet_name])
       #binding.pry
