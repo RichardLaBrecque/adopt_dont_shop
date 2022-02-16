@@ -39,7 +39,6 @@ Rails.application.routes.draw do
 
   post '/applications/:application_id/:pet_id/petapplications', to: 'pet_applications#create' #not restful, change to button/post
   get '/applications/new', to: 'applications#new'
-  get '/applications', to: 'applications#index'
   post '/applications', to: 'applications#create'
   get '/applications/:id', to: 'applications#show'
   patch '/applications/:id', to: 'applications#update'

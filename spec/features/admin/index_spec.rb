@@ -23,11 +23,11 @@ RSpec.describe 'Admin Index' do
       @pet_4 = Pet.create(adoptable: true, age: 1, breed: 'orange tabby shorthair', name: 'Lasagna', shelter_id: @shelter_3.id)
       @petapp = PetApplication.create!({pet_id: @pet_1.id, application_id: @application.id})
     end
-    xit 'has an admin shelters index page' do
+    it 'has an admin shelters index page' do
       visit '/admin/shelters'
     end
 
-    xit 'lists shelters in reverse alphabetical order' do
+    it 'lists shelters in reverse alphabetical order' do
       visit '/admin/shelters'
       expect(@shelter_2.name).to appear_before(@shelter_3.name)
       expect(@shelter_3.name).to appear_before(@shelter_1.name)
@@ -40,7 +40,7 @@ RSpec.describe 'Admin Index' do
     it 'has a section with shelters with pending applications' do
       visit '/admin/shelters'
       within ".pending-app" do
-        save_and_open_page
+
         expect(page).to have_content("Shelters with pending applications")
         expect(page).to have_content(@shelter_1.name)
         expect(page).to_not have_content(@shelter_3.name)
