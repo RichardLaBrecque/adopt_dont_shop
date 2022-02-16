@@ -40,7 +40,6 @@ RSpec.describe 'the application' do
       fill_in "Zipcode", with: "12345"
       click_on "Submit"
       application = Application.last
-      binding.pry
       expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("Person_2")
       expect(page).to have_content("In Progress")
